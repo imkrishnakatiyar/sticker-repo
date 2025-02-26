@@ -3,29 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reddit Sticker Repositry</title>
+    <title>Show and Save Image</title>
 </head>
 <body>
-    <input type="text" id="userInput" placeholder="Enter text here">
-    <button onclick="storeText()">Submit</button>
-    <p id="output"></p>
+
+    <h2>Display and Save Image from URL</h2>
+    
+    <input type="text" id="imageUrl" placeholder="Enter image URL">
+    <button onclick="showImage()">Show Image</button>
+    <button id="saveButton" style="display: none;" onclick="saveImage()">Save Image</button>
+
+    <br><br>
+    <img id="displayedImage" style="max-width: 300px; display: none;" alt="Loaded Image">
 
     <script>
-      const arr=["abc","def","ghi","jkl","mno"];
-      const links = ["https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-y9hviqht89je1.jpeg?width=320&format=pjpg&auto=webp&s=947b772a136572f492f238592a6e9fe02d4f521b","456","789","10011","1213"]
-        function storeText() {
-            let inputText = document.getElementById("userInput").value;
-          for (let i = 0; i < 5; i++) {
-            if(inputText==arr[i])
-              {
-                document.getElementById("output").innerText = links[i];
-              }
-          }
-          
-            
-            console.log("Stored text:", inputText);
+        function showImage() {
+            const url = document.getElementById("imageUrl").value;
+            const imgElement = document.getElementById("displayedImage");
+            const saveButton = document.getElementById("saveButton");
+
+            if (url.trim() === "") {
+                alert("Please enter a valid image URL.");
+                return;
+            }
+
+            imgElement.src = url;
+            imgElement.style.display = "block";
+            saveButton.style.display = "inline-block";
         }
-      
+
+        function saveImage() {
+            const imgElement = document.getElementById("displayedImage");
+
+            if (!imgElement.src) {
+                alert("No image to save.");
+                return;
+            }
+
+            const link = document.createElement("a");
+            link.href = imgElement.src;
+            link.download = "downloaded_image.jpg"; // Default filename
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
     </script>
+
 </body>
 </html>
