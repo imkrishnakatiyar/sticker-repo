@@ -78,7 +78,15 @@
             imgElement.style.maxWidth = "300px";
             imgElement.style.display = "block";
 
+            const saveButton = document.createElement("button");
+            saveButton.textContent = "Save Image";
+            saveButton.style.display = "block";
+            saveButton.onclick = function () {
+                saveImage(url);
+            };
+
             container.appendChild(imgElement);
+            container.appendChild(saveButton);
             return container;
         }
 
@@ -89,6 +97,15 @@
                 const imgElement = createImageElement(imageUrl);
                 imageContainer.appendChild(imgElement);
             });
+        }
+
+        function saveImage(url) {
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = "downloaded_image.jpg";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
 
         function showRandomImages() {
