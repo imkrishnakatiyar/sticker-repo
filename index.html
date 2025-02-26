@@ -9,15 +9,12 @@
 
     <h2>Sticker Repositry</h2>
     
-    <!-- Input field for entering image URL, "muthongo", or "alecc daddy" -->
-    <input type="text" id="imageUrl" placeholder="Enter type 'muthongo' or 'alecc daddy'">
+    <input type="text" id="imageUrl" placeholder="Enter type 'muthongo', 'alecc daddy' or 'absolute cinema'">
     
-    <!-- Button to display the image(s) -->
     <button onclick="showImage()">Show Image</button>
 
     <br><br>
 
-    <!-- Container to hold images -->
     <div id="imageContainer"></div>
     <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -25,7 +22,6 @@
 <script defer src="/_vercel/insights/script.js"></script>
 
     <script>
-        // Array named 'muthongo' containing multiple image links
         const muthongo = [
             "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-ietzqv9989je1.png?width=320&crop=smart&auto=webp&s=4695f23fdfa916478339b0faa86514a8cb5eecd7",
             "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-699meoia89je1.png?width=320&crop=smart&auto=webp&s=68853b75b9290c00922c1b54c82e003a0d7931d3",
@@ -34,43 +30,47 @@
             "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-nt1lm27q89je1.png?width=320&crop=smart&auto=webp&s=b82eb7d55bd0f23a24c278f3c0cd2564c69305a8"
         ];
 
-        // New array named 'aleccDaddy' containing different image links
         const aleccDaddy = [
             "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-s3apho2k99je1.jpeg?width=320&crop=smart&auto=webp&s=ab84f3cfb35e3ce76adf48fa16b9a4fb60b07ccb",
             "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-4l47qlil99je1.jpeg?width=320&crop=smart&auto=webp&s=e9a2113a6062f217bec6a26b27bcfc74357c6c7c"
         ];
 
-        // Function to display the image(s)
-        function showImage() {
-            let url = document.getElementById("imageUrl").value.trim().toLowerCase(); // Get and trim input
-            const imageContainer = document.getElementById("imageContainer"); // Get the container
-            imageContainer.innerHTML = ""; // Clear previous images
+        const absoluteCinema = [
+            "https://preview.redd.it/what-if-kl-chem-ka-paper-phy-se-bhi-tough-aaye-v0-g537a2uokfle1.jpeg?width=1080&crop=smart&auto=webp&s=ff2dad0ab2871cf6d730778d82ed7ab4b03d3d0e",
+            "https://preview.redd.it/what-if-kl-chem-ka-paper-phy-se-bhi-tough-aaye-v0-6pbp44udmfle1.jpeg?width=259&format=pjpg&auto=webp&s=804c4fcbda92fff0abfa51c04aa42657fce08a27",
+            "https://preview.redd.it/guys-im-ready-for-jee-main-2-bas-registration-ki-deri-hai-v0-ps4j89dzbfle1.jpeg?width=1080&crop=smart&auto=webp&s=8c1ef8315b1ef2ff50af35afcaf65df2c3e4d94b"
+        ];
 
-            // Show all images from 'muthongo' if entered
+        function showImage() {
+            let url = document.getElementById("imageUrl").value.trim().toLowerCase();
+            const imageContainer = document.getElementById("imageContainer");
+            imageContainer.innerHTML = "";
+
             if (url === "muthongo") {
                 displayImages(muthongo);
                 return;
             }
 
-            // Show all images from 'alecc daddy' if entered
             if (url === "alecc daddy") {
                 displayImages(aleccDaddy);
                 return;
             }
 
-            // If URL is empty, show random images
+            if (url === "absolute cinema") {
+                displayImages(absoluteCinema);
+                return;
+            }
+
             if (url === "") {
                 showRandomImages();
                 return;
             }
 
-            // Show only one image for a specific URL
             displayImages([url]);
         }
 
-        // Function to create an image element with a save button
         function createImageElement(url) {
-            const container = document.createElement("div"); // Wrapper for image and button
+            const container = document.createElement("div");
             container.style.marginBottom = "10px";
 
             const imgElement = document.createElement("img");
@@ -78,42 +78,22 @@
             imgElement.style.maxWidth = "300px";
             imgElement.style.display = "block";
 
-            const saveButton = document.createElement("button");
-            saveButton.textContent = "Save Image";
-            saveButton.style.display = "block";
-            saveButton.onclick = function () {
-                saveImage(url);
-            };
-
             container.appendChild(imgElement);
-            container.appendChild(saveButton);
             return container;
         }
 
-        // Function to display multiple images
         function displayImages(imageArray) {
             const imageContainer = document.getElementById("imageContainer");
-            imageContainer.innerHTML = ""; // Clear previous images
+            imageContainer.innerHTML = "";
             imageArray.forEach(imageUrl => {
                 const imgElement = createImageElement(imageUrl);
                 imageContainer.appendChild(imgElement);
             });
         }
 
-        // Function to save an image
-        function saveImage(url) {
-            const link = document.createElement("a");
-            link.href = url;
-            link.download = "downloaded_image.jpg";
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-
-        // Function to show random images from both arrays on homepage
         function showRandomImages() {
-            const allImages = [...muthongo, ...aleccDaddy];
-            const randomImages = allImages.sort(() => 0.5 - Math.random()).slice(0, 3); // Show 3 random images
+            const allImages = [...muthongo, ...aleccDaddy, ...absoluteCinema];
+            const randomImages = allImages.sort(() => 0.5 - Math.random()).slice(0, 3);
             displayImages(randomImages);
         }
     </script>
