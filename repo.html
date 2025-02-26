@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Input to JS Variable</title>
+</head>
+<body>
+    <input type="text" id="userInput" placeholder="Enter text here">
+    <button onclick="storeText()">Submit</button>
+    <p id="output"></p>
+
+    <script>
+      const arr=["abc","def","ghi","jkl","mno"];
+      const links = ["123","456","789","10011","1213"]
+        function storeText() {
+            let inputText = document.getElementById("userInput").value;
+          for (let i = 0; i < 5; i++) {
+            if(inputText==arr[i])
+              {
+                document.getElementById("output").innerText = links[i];
+              }
+          }
+          
+            
+            console.log("Stored text:", inputText);
+        }
+      
+    </script>
+</body>
+</html>
