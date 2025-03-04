@@ -5,127 +5,117 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sticker Repository</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
         #imageContainer {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
             justify-items: center;
+            padding: 20px;
         }
         img {
             width: 100%;
             max-width: 250px;
             height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        img:hover {
+            transform: scale(1.05);
+        }
+        button {
+            padding: 8px 12px;
+            margin: 5px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #imageUrl {
+            width: 250px;
+            padding: 8px;
+            margin-bottom: 10px;
         }
     </style>
-    <script>
-        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body onload="showRandomImages()">
-
     <h2>Sticker Repository</h2>
     
-    <input type="text" id="imageUrl" placeholder="type 'muthongo', 'alecc daddy', 'absolute cinema', 'padhle bsdk', or 'cumpithishun'">
+    <input type="text" id="imageUrl" placeholder="Type a sticker name...">
     
     <button onclick="showImage()">Show Image</button>
-
     <br><br>
-    <p>Or just click Show Image with empty search box to see randomly selected stickers </p>
-    <br>
+    <p>Or just click Show Image with an empty search box to see randomly selected stickers</p>
+    
     <div id="imageContainer"></div>
-
+    
     <script>
-        const muthongo = [
-    "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-y0r4xrwj89je1.jpeg?width=320&crop=smart&auto=webp&s=5b6757005565dd438cc0ce2d573b45ffbeb78205",
-    "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-rtiaxcaj89je1.png?width=320&crop=smart&auto=webp&s=f1f70aefdae720a30f58b7cbec4571e8b4e16fb0",
-    "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-nl4zolt989je1.png?width=320&crop=smart&auto=webp&s=3b07a932f7f8e85af8adb78bb6160b37724a8270",
-            "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-ietzqv9989je1.png?width=320&crop=smart&auto=webp&s=4695f23fdfa916478339b0faa86514a8cb5eecd7",
-            "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-699meoia89je1.png?width=320&crop=smart&auto=webp&s=68853b75b9290c00922c1b54c82e003a0d7931d3",
-            "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-d75az5ig89je1.jpeg?width=320&crop=smart&auto=webp&s=155e0b883a3f43c8a7fae855baf9022aa7ad2bb8",
-            "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-kwu4w05p89je1.png?width=235&format=png&auto=webp&s=e4f55a44b1c25817fbf929f374c2a514bb586e30",
-            "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-nt1lm27q89je1.png?width=320&crop=smart&auto=webp&s=b82eb7d55bd0f23a24c278f3c0cd2564c69305a8"
-        ];
-
-        const aleccDaddy = [
-            "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-s3apho2k99je1.jpeg?width=320&crop=smart&auto=webp&s=ab84f3cfb35e3ce76adf48fa16b9a4fb60b07ccb",
-            "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-4l47qlil99je1.jpeg?width=320&crop=smart&auto=webp&s=e9a2113a6062f217bec6a26b27bcfc74357c6c7c" ,
-            "https://preview.redd.it/make-the-comment-section-look-like-maheshwaris-search-v0-86kfwtdonnle1.jpeg?width=320&crop=smart&auto=webp&s=524281c033365475070facc88c676dfcafe3fdab" ,
-            "https://preview.redd.it/make-the-comment-section-look-like-maheshwaris-search-v0-5wfndq7wcmle1.png?auto=webp&s=d783d95d26b2d62ab1bef473bd4fb73c910f0d45" ,
-            "https://preview.redd.it/created-a-stickers-repository-for-all-the-jee-neet-related-v0-buczvwxd1ple1.png?width=320&crop=smart&auto=webp&s=d7713d9161550f6599b00559eac99ad08b1cebef"
-        ];
-
-        const absoluteCinema = [
-            "https://preview.redd.it/what-if-kl-chem-ka-paper-phy-se-bhi-tough-aaye-v0-g537a2uokfle1.jpeg?width=1080&crop=smart&auto=webp&s=ff2dad0ab2871cf6d730778d82ed7ab4b03d3d0e",
-            "https://preview.redd.it/what-if-kl-chem-ka-paper-phy-se-bhi-tough-aaye-v0-6pbp44udmfle1.jpeg?width=259&format=pjpg&auto=webp&s=804c4fcbda92fff0abfa51c04aa42657fce08a27",
-            "https://preview.redd.it/guys-im-ready-for-jee-main-2-bas-registration-ki-deri-hai-v0-ps4j89dzbfle1.jpeg?width=1080&crop=smart&auto=webp&s=8c1ef8315b1ef2ff50af35afcaf65df2c3e4d94b"
-        ];
-
-        const padhleBsdk = [
-            "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-l72gb86d89je1.png?width=320&crop=smart&auto=webp&s=e67444704f5c18fda6529743dfeae5aca50e5cb4"
-        ];
-
-        const cumpithishun = [
-            
-            "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-33a4z2zk89je1.png?width=320&crop=smart&auto=webp&s=ced1292a7da4798a68f06e70d50c7f2a9e5329ea"
-        , "https://preview.redd.it/he-is-everywhere-v0-7uciz2xrnhle1.png?width=320&crop=smart&auto=webp&s=4db9847c90fa0f528d6120360c27ebe5eff313e3" ,
-                "https://preview.redd.it/he-is-everywhere-v0-q05fy2sbihle1.png?width=230&format=png&auto=webp&s=7184ea4fbc2426f5e8d305339aef0619cb36a852" ,
-                "https://preview.redd.it/he-is-everywhere-v0-zxqregstdhle1.png?width=204&format=png&auto=webp&s=7618bde6e703888d5bf02ba924ffacb829c99f73"
-            ,"https://preview.redd.it/he-is-everywhere-v0-r4spl5s2dhle1.jpeg?width=1080&crop=smart&auto=webp&s=4b8d2c4efb796e15a20357dc759668c57fc2af57" ,
-            "https://preview.redd.it/created-a-stickers-repository-for-all-jee-neet-related-v0-mjxiem4n7qle1.png?width=320&crop=smart&auto=webp&s=052f8895642bd3a48fb4b4cb7490f8b97cbac28e"
-        ];
+        const categories = {
+            "muthongo": [
+                "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-y0r4xrwj89je1.jpeg?width=320&crop=smart&auto=webp&s=5b6757005565dd438cc0ce2d573b45ffbeb78205",
+                "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-rtiaxcaj89je1.png?width=320&crop=smart&auto=webp&s=f1f70aefdae720a30f58b7cbec4571e8b4e16fb0",
+                "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-nl4zolt989je1.png?width=320&crop=smart&auto=webp&s=3b07a932f7f8e85af8adb78bb6160b37724a8270"
+            ],
+            "alecc daddy": [
+                "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-s3apho2k99je1.jpeg?width=320&crop=smart&auto=webp&s=ab84f3cfb35e3ce76adf48fa16b9a4fb60b07ccb"
+            ],
+            "absolute cinema": [
+                "https://preview.redd.it/what-if-kl-chem-ka-paper-phy-se-bhi-tough-aaye-v0-g537a2uokfle1.jpeg?width=1080&crop=smart&auto=webp&s=ff2dad0ab2871cf6d730778d82ed7ab4b03d3d0e"
+            ],
+            "padhle bsdk": [
+                "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-l72gb86d89je1.png?width=320&crop=smart&auto=webp&s=e67444704f5c18fda6529743dfeae5aca50e5cb4"
+            ],
+            "cumpithishun": [
+                "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-33a4z2zk89je1.png?width=320&crop=smart&auto=webp&s=ced1292a7da4798a68f06e70d50c7f2a9e5329ea"
+            ],
+            "chinese": [
+                "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-l9rrbma789je1.jpeg?width=320&crop=smart&auto=webp&s=d5fd36e5ecafbf82c90967ba5213e2fa5bd11715"
+            ]
+        };
 
         function showImage() {
-            let url = document.getElementById("imageUrl").value.trim().toLowerCase();
-            if (!url) return showRandomImages();
-            const chinese = [
-    "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-l9rrbma789je1.jpeg?width=320&crop=smart&auto=webp&s=d5fd36e5ecafbf82c90967ba5213e2fa5bd11715"
-
-               
-            ];
-
-const collections = {
-    "muthongo": muthongo,
-    "alecc daddy": aleccDaddy,
-    "absolute cinema": absoluteCinema,
-    "padhle bsdk": padhleBsdk,
-    "cumpithishun": cumpithishun,
-    "chinese": chinese
-};
-            displayImages(collections[url] || [url]);
+            let query = document.getElementById("imageUrl").value.trim().toLowerCase();
+            if (!query) return showRandomImages();
+            displayImages(categories[query] || []);
         }
 
-        function createImageElement(url) {
-            const container = document.createElement("div");
-            container.style.marginBottom = "10px";
-            const imgElement = document.createElement("img");
-            imgElement.src = url;
-            const saveButton = document.createElement("button");
-            saveButton.textContent = "Save Image";
-            saveButton.onclick = () => saveImage(url);
-            container.appendChild(imgElement);
-            container.appendChild(saveButton);
-            return container;
-        }
-
-        function displayImages(imageArray) {
+        function displayImages(images) {
             const imageContainer = document.getElementById("imageContainer");
             imageContainer.innerHTML = "";
-            imageArray.forEach(url => imageContainer.appendChild(createImageElement(url)));
+            images.forEach(url => {
+                const container = document.createElement("div");
+                const img = document.createElement("img");
+                img.src = url;
+                img.loading = "lazy";
+                const saveButton = document.createElement("button");
+                saveButton.textContent = "Save Image";
+                saveButton.onclick = () => saveImage(url);
+                container.appendChild(img);
+                container.appendChild(saveButton);
+                imageContainer.appendChild(container);
+            });
         }
 
         function saveImage(url) {
             const link = document.createElement("a");
             link.href = url;
-            link.download = "downloaded_image.jpg";
+            link.download = "sticker.jpg";
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
         }
 
         function showRandomImages() {
-            const allImages = [...muthongo, ...aleccDaddy, ...absoluteCinema, ...padhleBsdk, ...cumpithishun];
-            displayImages(allImages.sort(() => 0.5 - Math.random()).slice(0, 10));
+            const allImages = Object.values(categories).flat();
+            displayImages(allImages.sort(() => Math.random() - 0.5).slice(0, 10));
         }
     </script>
 </body>
