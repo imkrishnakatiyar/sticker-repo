@@ -1,132 +1,103 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sticker Repository</title>
-    <style>
-        #imageContainer {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            justify-items: center;
-        }
-        img {
-            width: 100%;
-            max-width: 250px;
-            height: auto;
-        }
-    </style>
-    <script>
-        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Community Help Request Portal</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#f8f9fa;--card:#ffffff;--text:#111827;--muted:#6b7280;--primary:#0b5cff;--success:#16a34a;--danger:#dc2626;--accent:#f59e0b;--glass:rgba(255,255,255,0.6);
+    }
+    [data-theme="dark"]{--bg:#0b1220;--card:#0f1724;--text:#e6eef8;--muted:#94a3b8;--glass:rgba(255,255,255,0.03)}
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;background:var(--bg);color:var(--text);line-height:1.4;padding:18px}
+    .container{max-width:1100px;margin:0 auto}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+    h1{font-size:1.3rem}
+    .card{background:var(--card);border-radius:12px;padding:14px;box-shadow:0 6px 18px rgba(2,6,23,0.06)}
+    label{display:block;font-size:0.78rem;color:var(--muted);margin-bottom:6px}
+    input,select,textarea{width:100%;padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);background:transparent;color:var(--text)}
+    textarea{min-height:100px;resize:vertical}
+    .btn{padding:8px 12px;border-radius:8px;border:0;background:var(--primary);color:white;cursor:pointer;margin-top:8px}
+  </style>
 </head>
-<body onload="showRandomImages()">
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Community Help Request Portal</h1>
+        <div class="small">Submit or browse help requests from your community.</div>
+      </div>
+    </header>
 
-    <h2>Sticker Repository</h2>
-    
-    <input type="text" id="imageUrl" placeholder="type 'muthongo', 'alecc daddy', 'absolute cinema', 'padhle bsdk', or 'cumpithishun'">
-    
-    <button onclick="showImage()">Show Image</button>
+    <main>
+      <section class="card">
+        <h2>Submit a Help Request</h2>
+        <form id="requestForm">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" required placeholder="Your name" />
+          <label for="contact">Contact</label>
+          <input id="contact" name="contact" type="text" required placeholder="Email or phone" />
+          <label for="type">Request Type</label>
+          <select id="type" name="type" required>
+            <option value="Medical">Medical</option>
+            <option value="Education">Education</option>
+            <option value="Infrastructure">Infrastructure</option>
+            <option value="Emergency">Emergency</option>
+            <option value="Other">Other</option>
+          </select>
+          <label for="urgency">Urgency</label>
+          <select id="urgency" name="urgency" required>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+          <label for="desc">Description</label>
+          <textarea id="desc" name="desc" required placeholder="Type 2-3 words describing the situation..."></textarea>
+          <button type="button" class="btn" id="elaborateBtn">Elaborate with Gemini</button>
+          <button class="btn" type="submit">Submit Request</button>
+        </form>
+      </section>
+    </main>
+  </div>
 
-    <br><br>
-    <p>Or just click Show Image with empty search box to see randomly selected stickers </p>
-    <br>
-    <div id="imageContainer"></div>
+  <script>
+    const descInp = document.getElementById('desc');
+    const elaborateBtn = document.getElementById('elaborateBtn');
 
-    <script>
-        const muthongo = [
-    "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-y0r4xrwj89je1.jpeg?width=320&crop=smart&auto=webp&s=5b6757005565dd438cc0ce2d573b45ffbeb78205",
-    "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-rtiaxcaj89je1.png?width=320&crop=smart&auto=webp&s=f1f70aefdae720a30f58b7cbec4571e8b4e16fb0",
-    "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-nl4zolt989je1.png?width=320&crop=smart&auto=webp&s=3b07a932f7f8e85af8adb78bb6160b37724a8270",
-            "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-ietzqv9989je1.png?width=320&crop=smart&auto=webp&s=4695f23fdfa916478339b0faa86514a8cb5eecd7",
-            "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-699meoia89je1.png?width=320&crop=smart&auto=webp&s=68853b75b9290c00922c1b54c82e003a0d7931d3",
-            "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-d75az5ig89je1.jpeg?width=320&crop=smart&auto=webp&s=155e0b883a3f43c8a7fae855baf9022aa7ad2bb8",
-            "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-kwu4w05p89je1.png?width=235&format=png&auto=webp&s=e4f55a44b1c25817fbf929f374c2a514bb586e30",
-            "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-nt1lm27q89je1.png?width=320&crop=smart&auto=webp&s=b82eb7d55bd0f23a24c278f3c0cd2564c69305a8"
-        ];
+    const GEMINI_API_KEY = 'AIzaSyDWZeoKu8_ghiGhThf9TOjQGVjmlIqmmH4'; // Replace with your Gemini API key
 
-        const aleccDaddy = [
-            "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-s3apho2k99je1.jpeg?width=320&crop=smart&auto=webp&s=ab84f3cfb35e3ce76adf48fa16b9a4fb60b07ccb",
-            "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-4l47qlil99je1.jpeg?width=320&crop=smart&auto=webp&s=e9a2113a6062f217bec6a26b27bcfc74357c6c7c" ,
-            "https://preview.redd.it/make-the-comment-section-look-like-maheshwaris-search-v0-86kfwtdonnle1.jpeg?width=320&crop=smart&auto=webp&s=524281c033365475070facc88c676dfcafe3fdab" ,
-            "https://preview.redd.it/make-the-comment-section-look-like-maheshwaris-search-v0-5wfndq7wcmle1.png?auto=webp&s=d783d95d26b2d62ab1bef473bd4fb73c910f0d45" ,
-            "https://preview.redd.it/created-a-stickers-repository-for-all-the-jee-neet-related-v0-buczvwxd1ple1.png?width=320&crop=smart&auto=webp&s=d7713d9161550f6599b00559eac99ad08b1cebef"
-        ];
+    async function elaborateDescription(query) {
+      try {
+        const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateText?key=' + GEMINI_API_KEY, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: `Elaborate this brief community help request into a clear and detailed description: ${query}` }] }]
+          })
+        });
 
-        const absoluteCinema = [
-            "https://preview.redd.it/what-if-kl-chem-ka-paper-phy-se-bhi-tough-aaye-v0-g537a2uokfle1.jpeg?width=1080&crop=smart&auto=webp&s=ff2dad0ab2871cf6d730778d82ed7ab4b03d3d0e",
-            "https://preview.redd.it/what-if-kl-chem-ka-paper-phy-se-bhi-tough-aaye-v0-6pbp44udmfle1.jpeg?width=259&format=pjpg&auto=webp&s=804c4fcbda92fff0abfa51c04aa42657fce08a27",
-            "https://preview.redd.it/guys-im-ready-for-jee-main-2-bas-registration-ki-deri-hai-v0-ps4j89dzbfle1.jpeg?width=1080&crop=smart&auto=webp&s=8c1ef8315b1ef2ff50af35afcaf65df2c3e4d94b"
-        ];
+        const data = await response.json();
+        const elaboratedText = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Could not elaborate the text.';
+        descInp.value = elaboratedText.trim();
+      } catch (err) {
+        console.error('Gemini API error:', err);
+        alert('Error connecting to Gemini API.');
+      }
+    }
 
-        const padhleBsdk = [
-            "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-l72gb86d89je1.png?width=320&crop=smart&auto=webp&s=e67444704f5c18fda6529743dfeae5aca50e5cb4"
-        ];
-
-        const cumpithishun = [
-            
-            "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-33a4z2zk89je1.png?width=320&crop=smart&auto=webp&s=ced1292a7da4798a68f06e70d50c7f2a9e5329ea"
-        , "https://preview.redd.it/he-is-everywhere-v0-7uciz2xrnhle1.png?width=320&crop=smart&auto=webp&s=4db9847c90fa0f528d6120360c27ebe5eff313e3" ,
-                "https://preview.redd.it/he-is-everywhere-v0-q05fy2sbihle1.png?width=230&format=png&auto=webp&s=7184ea4fbc2426f5e8d305339aef0619cb36a852" ,
-                "https://preview.redd.it/he-is-everywhere-v0-zxqregstdhle1.png?width=204&format=png&auto=webp&s=7618bde6e703888d5bf02ba924ffacb829c99f73"
-            ,"https://preview.redd.it/he-is-everywhere-v0-r4spl5s2dhle1.jpeg?width=1080&crop=smart&auto=webp&s=4b8d2c4efb796e15a20357dc759668c57fc2af57" ,
-            "https://preview.redd.it/created-a-stickers-repository-for-all-jee-neet-related-v0-mjxiem4n7qle1.png?width=320&crop=smart&auto=webp&s=052f8895642bd3a48fb4b4cb7490f8b97cbac28e"
-        ];
-
-        function showImage() {
-            let url = document.getElementById("imageUrl").value.trim().toLowerCase();
-            if (!url) return showRandomImages();
-            const chinese = [
-    "https://preview.redd.it/i-am-creating-a-sticker-repository-for-all-jee-neet-related-v0-l9rrbma789je1.jpeg?width=320&crop=smart&auto=webp&s=d5fd36e5ecafbf82c90967ba5213e2fa5bd11715"
-
-               
-            ];
-
-const collections = {
-    "muthongo": muthongo,
-    "alecc daddy": aleccDaddy,
-    "absolute cinema": absoluteCinema,
-    "padhle bsdk": padhleBsdk,
-    "cumpithishun": cumpithishun,
-    "chinese": chinese
-};
-            displayImages(collections[url] || [url]);
-        }
-
-        function createImageElement(url) {
-            const container = document.createElement("div");
-            container.style.marginBottom = "10px";
-            const imgElement = document.createElement("img");
-            imgElement.src = url;
-            const saveButton = document.createElement("button");
-            saveButton.textContent = "Save Image";
-            saveButton.onclick = () => saveImage(url);
-            container.appendChild(imgElement);
-            container.appendChild(saveButton);
-            return container;
-        }
-
-        function displayImages(imageArray) {
-            const imageContainer = document.getElementById("imageContainer");
-            imageContainer.innerHTML = "";
-            imageArray.forEach(url => imageContainer.appendChild(createImageElement(url)));
-        }
-
-        function saveImage(url) {
-            const link = document.createElement("a");
-            link.href = url;
-            link.download = "downloaded_image.jpg";
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-
-        function showRandomImages() {
-            const allImages = [...muthongo, ...aleccDaddy, ...absoluteCinema, ...padhleBsdk, ...cumpithishun];
-            displayImages(allImages.sort(() => 0.5 - Math.random()).slice(0, 10));
-        }
-    </script>
+    elaborateBtn.addEventListener('click', async () => {
+      const val = descInp.value.trim();
+      if (!val) {
+        alert('Please enter a few words first.');
+        return;
+      }
+      elaborateBtn.textContent = 'Elaborating...';
+      elaborateBtn.disabled = true;
+      await elaborateDescription(val);
+      elaborateBtn.textContent = 'Elaborate with Gemini';
+      elaborateBtn.disabled = false;
+    });
+  </script>
 </body>
 </html>
