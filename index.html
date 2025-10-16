@@ -3,9 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Community Help Portal</title>
+<title>Enactus Round 2 Project</title>
 <style>
-  /* ===== Basic Reset ===== */
   *{box-sizing:border-box;margin:0;padding:0}
   :root{
     --bg:#f8f9fa; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -22,11 +21,9 @@
   .controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
   button,select,input,textarea{font:inherit}
   
-  /* layout */
   .grid{display:grid;grid-template-columns:1fr 420px;gap:18px}
   @media (max-width:980px){.grid{grid-template-columns:1fr}}
   
-  /* Card */
   .card{background:var(--card);border-radius:12px;padding:14px;box-shadow:0 6px 18px rgba(2,6,23,0.06);transition:transform 0.2s}
   .card:hover{transform:translateY(-2px)}
   .form-row{display:flex;gap:8px;margin-bottom:10px}
@@ -39,7 +36,6 @@
   .btn.ghost{background:transparent;color:var(--primary);border:1px solid rgba(11,92,255,0.12)}
   .btn.danger{background:var(--danger)}
   
-  /* badges & tags */
   .badge{display:inline-block;padding:6px 8px;border-radius:999px;font-size:0.75rem;background:rgba(0,0,0,0.04);color:var(--muted)}
   .urgency-high{background:rgba(220,38,38,0.12);color:var(--danger)}
   .urgency-med{background:rgba(245,158,11,0.12);color:var(--accent)}
@@ -48,7 +44,6 @@
   .status-progress{background:rgba(251,191,36,0.12);color:#fbbf24}
   .status-resolved{background:rgba(16,185,129,0.12);color:#10b981}
   
-  /* request list */
   .request-list{display:grid;gap:12px}
   .request-card{display:flex;flex-direction:column;gap:8px;padding:12px;border-radius:10px;border:1px solid rgba(0,0,0,0.04);background:var(--glass);position:relative;transition:all 0.3s}
   .request-card.resolved{opacity:0.6;text-decoration:line-through}
@@ -58,29 +53,25 @@
   .small{font-size:0.78rem;color:var(--muted)}
   .footer-row{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
   
-  /* modal */
   .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.45);display:none;align-items:center;justify-content:center;padding:20px;transition:opacity 0.3s}
   .modal-backdrop.show{display:flex;opacity:1}
   .modal{background:var(--card);padding:14px;border-radius:12px;max-width:480px;width:100%;transition:transform 0.3s;transform:translateY(-20px);opacity:0}
   .modal.show{transform:translateY(0);opacity:1}
   .modal h3{margin-bottom:8px}
   
-  /* stats */
   .stats{display:flex;gap:10px;flex-wrap:wrap}
   .stat{flex:1;min-width:130px;padding:10px;border-radius:8px;background:linear-gradient(180deg,rgba(255,255,255,0.03),transparent)}
   
-  /* notifications */
   .toast-container{position:fixed;top:18px;right:18px;display:flex;flex-direction:column;gap:8px;z-index:9999}
   .toast{background:var(--card);padding:10px 14px;border-radius:8px;box-shadow:0 4px 10px rgba(0,0,0,0.15);transition:all 0.3s;opacity:0;transform:translateX(20px);}
   .toast.show{opacity:1;transform:translateX(0);}
   
-  /* tiny helpers */
   .flex{display:flex;gap:8px;align-items:center}
   .right{margin-left:auto}
   .center{display:flex;align-items:center;justify-content:center}
   .hidden{display:none}
   
-  /* accessibility focus */
+ 
   button:focus, input:focus, select:focus, textarea:focus{outline:3px solid rgba(11,92,255,0.12);outline-offset:2px}
 </style>
 </head>
@@ -88,7 +79,7 @@
 <div class="container" id="app">
 <header>
   <div>
-    <h1>Community Help Portal</h1>
+    <h1>Enactus Round  2 Project</h1>
     <div class="small">Submit or browse help requests from your community.</div>
   </div>
   <div class="controls">
@@ -211,7 +202,6 @@
   </aside>
 </main>
 
-<!-- Modal -->
 <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true">
   <div class="modal" role="document">
     <h3 id="modalTitle">Offer Help</h3>
@@ -242,7 +232,6 @@
   </div>
 </div>
 
-<!-- Toasts -->
 <div class="toast-container" id="toastContainer"></div>
 
 <script>
@@ -252,7 +241,6 @@
   const uid = ()=> 'r_'+Math.random().toString(36).slice(2,9);
   const nowISO = ()=> new Date().toISOString();
 
-  /* Elements */
   const form = el('requestForm'), nameInp = el('name'), contactInp = el('contact'), typeSel = el('type'), urgencySel = el('urgency'), descInp = el('desc'), formMsg = el('formMsg');
   const requestsNode = el('requests'), requestCount = el('requestCount'), filterType = el('filterType'), filterStatus = el('filterStatus'), sortBy = el('sortBy'), searchInput = el('searchInput');
   const modalBackdrop = el('modalBackdrop'), helperForm = el('helperForm'), targetId = el('targetId'), helperName = el('helperName'), helperContact = el('helperContact'), statusSel = el('statusSel'), modalMsg = el('modalMsg');
@@ -395,9 +383,9 @@
 
   function seedIfEmpty(){ if(requests.length===0){ requests=[{id:uid(),name:'Rita Sharma',contact:'+91 98xxxx',type:'Medical',desc:'Needs transport to clinic',urgency:'High',date:nowISO(),helpers:[],status:'Open'},{id:uid(),name:'Sunil Kumar',contact:'sunil@mail',type:'Education',desc:'Volunteer teacher needed for evening classes',urgency:'Medium',date:nowISO(),helpers:[],status:'Open'}]; saveRequests(); } }
 
-  /* Initialize */
   loadRequests(); seedIfEmpty(); initTheme(); render(); renderStats();
 })();
 </script>
 </body>
 </html>
+
